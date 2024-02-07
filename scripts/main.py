@@ -8,12 +8,13 @@ from sqlalchemy import create_engine,text
 import os
 from scrap_scorecard import get_match_name_from_url,get_batting_stats_as_dataframe,get_bowling_stats_as_dataframe,get_html_response
 
-
+#run sql quries from quires.sql file 
 def run_sql_file(engine):
     with engine.connect() as con:
         with open("SQL/query.sql") as file:
             query = text(file.read())
             con.execute(query)
+            
 #getting match table of world cup  ODI 2023
 def get_match_details(url):
     match_table_header = []
@@ -63,6 +64,7 @@ def save_match_table_sql(url,engine):
     except Exception as err:
         print("Error saving",err)
 
+#function to save batting stats table to csv
 def save_batting_data_csv(url):
     try:
         df = get_batting_stats_as_dataframe(url)
@@ -72,7 +74,7 @@ def save_batting_data_csv(url):
     except Exception as err:
         print("Error saving",err)
 
-
+#function to save bowling stats table to csv
 def save_bowling_data_csv(url):
     try:
         df = get_bowling_stats_as_dataframe(url)
@@ -81,14 +83,15 @@ def save_bowling_data_csv(url):
         df.to_csv("datasets/bowling_"+match_name+".csv",index=False)
     except Exception as err:
         print("Error saving",err)
-    
 
+#function to save batting stats table to sql
 def save_batting_data_sql(url,engine):
     try:
         get_batting_stats_as_dataframe(url).to_sql('batting_details', con=engine, if_exists='append', index=False)
     except Exception as err:
         print("Error saving",err)
 
+#function to save bowling stats table to sql
 def save_bowling_data_sql(url,engine):
     try:
         get_bowling_stats_as_dataframe(url).to_sql('bowling_details', con=engine, if_exists='append', index=False)
@@ -96,7 +99,7 @@ def save_bowling_data_sql(url,engine):
         print("Error saving",err)
 
 
-
+#function to save all stats of world cup 2023 to csv 
 def save_all_match_scorecard_csv(url):
     try:
         #saving match_table
@@ -114,6 +117,7 @@ def save_all_match_scorecard_csv(url):
     except Exception as err:
         print("Error saving",err)
 
+#function to save all stats of world cup 2023 to sql
 def save_all_match_scorecard_sql(url,engine):
     try:
         #saving match_table
@@ -130,9 +134,9 @@ def save_all_match_scorecard_sql(url,engine):
                     save_bowling_data_sql(link.get('href'),engine)
     except Exception as err:
         print("Error saving",err)
-
+        
+#  Create a SQLAlchemy engine to connect to the MySQL database
 def get_sql_engine():
-    #  Create a SQLAlchemy engine to connect to the MySQL database
     return create_engine("mysql+mysqlconnector://root:root@localhost/sports")
     #mysql+mysqlconnector://username:password@localhost/db_name
 
