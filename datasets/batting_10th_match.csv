@@ -1,0 +1,21 @@
+batsmen,wicket,runs_scored,balls_faced,matches_played,fours,sixes,strike_rate,country,match_name
+Quinton de Kock,b Maxwell,109,106,147,8,5,102.83,South Africa,10th_match
+Temba Bavuma,c Warner b Maxwell,35,55,84,2,0,63.63,South Africa,10th_match
+Rassie van der Dussen,c sub (SA Abbott) b Zampa,26,30,33,2,0,86.66,South Africa,10th_match
+Aiden Markram,c Hazlewood b Cummins,56,44,61,7,1,127.27,South Africa,10th_match
+Heinrich Klaasen,c Inglis b Hazlewood,29,27,40,3,0,107.4,South Africa,10th_match
+David Miller,b Starc,17,13,35,1,1,130.76,South Africa,10th_match
+Marco Jansen,c Warner b Starc,26,22,25,3,1,118.18,South Africa,10th_match
+Kagiso Rabada,not out,0,1,4,0,0,0.0,South Africa,10th_match
+Keshav Maharaj,not out,0,2,1,0,0,0.0,South Africa,10th_match
+Mitchell Marsh,c Bavuma b Jansen,7,15,27,0,0,46.66,Australia,10th_match
+David Warner,c van der Dussen b Ngidi,13,27,33,2,0,48.14,Australia,10th_match
+Steven Smith,lbw b Rabada,19,16,20,4,0,118.75,Australia,10th_match
+Marnus Labuschagne,c Bavuma b Maharaj,46,74,125,3,0,62.16,Australia,10th_match
+Josh Inglis,b Rabada,5,4,5,1,0,125.0,Australia,10th_match
+Glenn Maxwell,c & b Maharaj,3,17,17,0,0,17.64,Australia,10th_match
+Marcus Stoinis,c de Kock b Rabada,5,4,6,1,0,125.0,Australia,10th_match
+Mitchell Starc,c de Kock b Jansen,27,51,69,3,0,52.94,Australia,10th_match
+Pat Cummins,c Miller b Shamsi,22,21,29,4,0,104.76,Australia,10th_match
+Adam Zampa,not out,11,16,25,1,0,68.75,Australia,10th_match
+Josh Hazlewood,c Rabada b Shamsi,2,2,1,0,0,100.0,Australia,10th_match

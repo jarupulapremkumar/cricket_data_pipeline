@@ -1,0 +1,23 @@
+batsmen,wicket,runs_scored,balls_faced,matches_played,fours,sixes,strike_rate,country,match_name
+Rahmanullah Gurbaz,run out (sub [DJ Willey]/Buttler),80,57,87,8,4,140.35,Afghanistan,13th_match
+Ibrahim Zadran,c Root b Rashid,28,48,73,3,0,58.33,Afghanistan,13th_match
+Rahmat Shah,st Buttler b Rashid,3,8,10,0,0,37.5,Afghanistan,13th_match
+Hashmatullah Shahidi,b Root,14,36,46,0,0,38.88,Afghanistan,13th_match
+Azmatullah Omarzai,c Woakes b Livingstone,19,24,25,1,1,79.16,Afghanistan,13th_match
+Ikram Alikhil,c Curran b Topley,58,66,92,3,2,87.87,Afghanistan,13th_match
+Mohammad Nabi,c Root b Wood,9,15,14,1,0,60.0,Afghanistan,13th_match
+Rashid Khan,c Root b Rashid,23,22,37,3,0,104.54,Afghanistan,13th_match
+Mujeeb Ur Rahman,c Root b Wood,28,16,22,3,1,175.0,Afghanistan,13th_match
+Naveen0ul0Haq,run out (Buttler),5,6,9,1,0,83.33,Afghanistan,13th_match
+Fazalhaq Farooqi,not out,2,4,7,0,0,50.0,Afghanistan,13th_match
+Jonny Bairstow,lbw b Fazalhaq Farooqi,2,4,5,0,0,50.0,England,13th_match
+Dawid Malan,c Ibrahim Zadran b Mohammad Nabi,32,39,61,4,0,82.05,England,13th_match
+Joe Root,b Mujeeb Ur Rahman,11,17,23,2,0,64.7,England,13th_match
+Harry Brook,c Ikram Alikhil b Mujeeb Ur Rahman,66,61,123,7,1,108.19,England,13th_match
+Jos Buttler,b Naveen0ul0Haq,9,18,21,1,0,50.0,England,13th_match
+Liam Livingstone,lbw b Rashid Khan,10,14,15,1,0,71.42,England,13th_match
+Sam Curran,c Rahmat Shah b Mohammad Nabi,10,23,22,0,0,43.47,England,13th_match
+Chris Woakes,b Mujeeb Ur Rahman,9,26,21,1,0,34.61,England,13th_match
+Adil Rashid,c Mohammad Nabi b Rashid Khan,20,13,24,2,0,153.84,England,13th_match
+Mark Wood,b Rashid Khan,18,22,26,3,0,81.81,England,13th_match
+Reece Topley,not out,15,7,8,3,0,214.28,England,13th_match

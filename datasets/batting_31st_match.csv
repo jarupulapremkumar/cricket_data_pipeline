@@ -1,0 +1,17 @@
+batsmen,wicket,runs_scored,balls_faced,matches_played,fours,sixes,strike_rate,country,match_name
+Tanzid Hasan,lbw b Shaheen Shah Afridi,0,5,7,0,0,0.0,Bangladesh,31st_match
+Litton Das,c Agha Salman b Iftikhar Ahmed,45,64,100,6,0,70.31,Bangladesh,31st_match
+Najmul Hossain Shanto,c Usama Mir b Shaheen Shah Afridi,4,3,8,1,0,133.33,Bangladesh,31st_match
+Mushfiqur Rahim,c Mohammad Rizwan b Haris Rauf,5,8,18,1,0,62.5,Bangladesh,31st_match
+Mahmudullah,b Shaheen Shah Afridi,56,70,108,6,1,80.0,Bangladesh,31st_match
+Shakib Al Hasan,c Agha Salman b Haris Rauf,43,64,82,4,0,67.18,Bangladesh,31st_match
+Towhid Hridoy,c Iftikhar Ahmed b Usama Mir,7,3,9,0,1,233.33,Bangladesh,31st_match
+Mehidy Hasan Miraz,b Mohammad Wasim,25,30,50,1,1,83.33,Bangladesh,31st_match
+Taskin Ahmed,b Mohammad Wasim,6,13,20,0,0,46.15,Bangladesh,31st_match
+Mustafizur Rahman,b Mohammad Wasim,3,7,11,0,0,42.85,Bangladesh,31st_match
+Shoriful Islam,not out,1,4,8,0,0,25.0,Bangladesh,31st_match
+Abdullah Shafique,lbw b Mehidy Hasan Miraz,68,69,94,9,2,98.55,Pakistan,31st_match
+Fakhar Zaman,c Towhid Hridoy b Mehidy Hasan Miraz,81,74,126,3,7,109.45,Pakistan,31st_match
+Babar Azam,c Mahmudullah b Mehidy Hasan Miraz,9,16,20,1,0,56.25,Pakistan,31st_match
+Mohammad Rizwan,not out,26,21,27,4,0,123.8,Pakistan,31st_match
+Iftikhar Ahmed,not out,17,15,17,2,0,113.33,Pakistan,31st_match

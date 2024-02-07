@@ -1,0 +1,23 @@
+batsmen,wicket,runs_scored,balls_faced,matches_played,fours,sixes,strike_rate,country,match_name
+Dawid Malan,c Mohammad Rizwan b Iftikhar Ahmed,31,39,61,5,0,79.48,England,44th_match
+Jonny Bairstow,c Agha Salman b Haris Rauf,59,61,81,7,1,96.72,England,44th_match
+Joe Root,c Shadab Khan b Shaheen Shah Afridi,60,72,115,4,0,83.33,England,44th_match
+Ben Stokes,b Shaheen Shah Afridi,84,76,85,11,2,110.52,England,44th_match
+Jos Buttler,run out (Haris Rauf),27,18,39,3,1,150.0,England,44th_match
+Harry Brook,c Shaheen Shah Afridi b Haris Rauf,30,17,24,2,2,176.47,England,44th_match
+Moeen Ali,b Haris Rauf,8,6,10,0,1,133.33,England,44th_match
+Chris Woakes,not out,4,4,19,1,0,100.0,England,44th_match
+David Willey,c Iftikhar Ahmed b Mohammad Wasim,15,5,5,2,1,300.0,England,44th_match
+Gus Atkinson,b Mohammad Wasim,0,1,1,0,0,0.0,England,44th_match
+Adil Rashid,not out,0,1,1,0,0,0.0,England,44th_match
+Abdullah Shafique,lbw b Willey,0,2,2,0,0,0.0,Pakistan,44th_match
+Fakhar Zaman,c Stokes b Willey,1,9,13,0,0,11.11,Pakistan,44th_match
+Babar Azam,c Rashid b Atkinson,38,45,58,6,0,84.44,Pakistan,44th_match
+Mohammad Rizwan,b Ali,36,51,78,2,0,70.58,Pakistan,44th_match
+Saud Shakeel,b Rashid,29,37,52,4,0,78.37,Pakistan,44th_match
+Agha Salman,c Stokes b Willey,51,45,53,6,1,113.33,Pakistan,44th_match
+Iftikhar Ahmed,c Malan b Ali,3,5,8,0,0,60.0,Pakistan,44th_match
+Shadab Khan,b Rashid,4,7,4,1,0,57.14,Pakistan,44th_match
+Shaheen Shah Afridi,lbw b Atkinson,25,23,23,3,1,108.69,Pakistan,44th_match
+Mohammad Wasim,not out,16,14,33,2,1,114.28,Pakistan,44th_match
+Haris Rauf,c Stokes b Woakes,35,23,27,3,3,152.17,Pakistan,44th_match

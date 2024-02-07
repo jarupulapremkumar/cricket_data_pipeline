@@ -1,0 +1,20 @@
+batsmen,wicket,runs_scored,balls_faced,matches_played,fours,sixes,strike_rate,country,match_name
+Devon Conway,c Iyer b Mohammed Siraj,0,9,16,0,0,0.0,New Zealand,21st_match
+Will Young,b Mohammed Shami,17,27,41,3,0,62.96,New Zealand,21st_match
+Rachin Ravindra,c Shubman Gill b Mohammed Shami,75,87,133,6,1,86.2,New Zealand,21st_match
+Daryl Mitchell,c Kohli b Mohammed Shami,130,127,192,9,5,102.36,New Zealand,21st_match
+Tom Latham,lbw b Kuldeep Yadav,5,7,16,1,0,71.42,New Zealand,21st_match
+Glenn Phillips,c Sharma b Kuldeep Yadav,23,26,36,0,1,88.46,New Zealand,21st_match
+Mark Chapman,c Kohli b Bumrah,6,8,11,0,0,75.0,New Zealand,21st_match
+Mitchell Santner,b Mohammed Shami,1,2,3,0,0,50.0,New Zealand,21st_match
+Matt Henry,b Mohammed Shami,0,1,1,0,0,0.0,New Zealand,21st_match
+Lockie Ferguson,run out (Rahul),1,5,12,0,0,20.0,New Zealand,21st_match
+Trent Boult,not out,0,1,1,0,0,0.0,New Zealand,21st_match
+Rohit Sharma,b Ferguson,46,40,44,4,4,115.0,India,21st_match
+Shubman Gill,c Mitchell b Ferguson,26,31,53,5,0,83.87,India,21st_match
+Virat Kohli,c Phillips b Henry,95,104,154,8,2,91.34,India,21st_match
+Shreyas Iyer,c Conway b Boult,33,29,32,6,0,113.79,India,21st_match
+KL Rahul,lbw b Santner,27,35,43,3,0,77.14,India,21st_match
+Suryakumar Yadav,run out (Santner/Boult/Latham),2,4,8,0,0,50.0,India,21st_match
+Ravindra Jadeja,not out,39,44,63,3,1,88.63,India,21st_match
+Mohammed Shami,not out,1,1,2,0,0,100.0,India,21st_match

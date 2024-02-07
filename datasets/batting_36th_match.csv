@@ -1,0 +1,23 @@
+batsmen,wicket,runs_scored,balls_faced,matches_played,fours,sixes,strike_rate,country,match_name
+Travis Head,c Root b Woakes,11,10,8,1,0,110.0,Australia,36th_match
+David Warner,c Willey b Woakes,15,16,29,1,1,93.75,Australia,36th_match
+Steven Smith,c Ali b Rashid,44,52,85,3,0,84.61,Australia,36th_match
+Marnus Labuschagne,lbw b Wood,71,83,111,7,0,85.54,Australia,36th_match
+Josh Inglis,c Ali b Rashid,3,6,5,0,0,50.0,Australia,36th_match
+Cameron Green,b Willey,47,52,81,5,0,90.38,Australia,36th_match
+Marcus Stoinis,c Bairstow b Livingstone,35,32,53,3,2,109.37,Australia,36th_match
+Pat Cummins,c Malan b Wood,10,13,17,1,0,76.92,Australia,36th_match
+Mitchell Starc,c Ali b Woakes,10,13,30,0,0,76.92,Australia,36th_match
+Adam Zampa,c Buttler b Woakes,29,19,23,4,0,152.63,Australia,36th_match
+Josh Hazlewood,not out,1,1,1,0,0,100.0,Australia,36th_match
+Jonny Bairstow,c Inglis b Starc,0,1,1,0,0,0.0,England,36th_match
+Dawid Malan,c Head b Cummins,50,64,99,4,1,78.12,England,36th_match
+Joe Root,c Inglis b Starc,13,17,23,2,0,76.47,England,36th_match
+Ben Stokes,c Stoinis b Zampa,64,90,128,2,3,71.11,England,36th_match
+Jos Buttler,c Green b Zampa,1,7,10,0,0,14.28,England,36th_match
+Moeen Ali,c Warner b Zampa,42,43,61,6,0,97.67,England,36th_match
+Liam Livingstone,c sub (SA Abbott) b Cummins,2,5,6,0,0,40.0,England,36th_match
+Chris Woakes,c Labuschagne b Stoinis,32,33,52,4,1,96.96,England,36th_match
+David Willey,c Zampa b Hazlewood,15,14,19,3,0,107.14,England,36th_match
+Adil Rashid,c Inglis b Hazlewood,20,15,23,1,1,133.33,England,36th_match
+Mark Wood,not out,0,0,1,0,0,0.0,England,36th_match

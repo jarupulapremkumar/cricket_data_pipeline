@@ -1,0 +1,6 @@
+sqlalchemy==2.0.25
+tqdm==4.66.1
+pandas==2.1.1
+beautifulsoup4==4.12.3
+urllib3==2.1.0
+requests==2.31.0
