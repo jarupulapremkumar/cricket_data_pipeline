@@ -19,7 +19,7 @@ class ScoreCard:
         self.fall_of_wickets_data = []
         self.match_details_dict={ key:None for key in ['team_a','team_b','scorecard_id','description','match_result','stadium','series','season','player_of_the_match','match_number',
                'tv_umpire','reserve_umpire','match_referee','standing_umpire1','standing_umpire2','match_date','match_format','toss_won','toss_decision','winner','match_count','match_type',
-               'player_of_the_series',"series_result",]}
+               'player_of_the_series',"series_result"]}
 
         self.collect_stats(url)
 

@@ -79,8 +79,25 @@ def get_sql_engine():
 
 def save_df_to_csv(df,file_name):
     try:
+        
         os.makedirs("datasets", exist_ok=True)
-        df.to_csv("datasets/"+file_name+".csv",index=False,mode='a')
+        if file_name == 'batting':
+            header = ["batsmen", "wicket", "runs_scored", "balls_faced", "minutes_played", "fours", "sixes", "strike_rate", "country", "match_name", "scorecard_id"]
+        elif file_name == 'bowling':
+            header = ['bowler','overs','maidens','runs','wickets','economy','zeros','fours','sixes','wides','noballs','country','match_name','scorecard_id']
+        elif file_name == 'total_score':
+            header=["over_played", "run_rate", "total_score", "wickets_fallen", "country", "match_name", "scorecard_id"]
+        elif file_name == 'match_details':
+            header =['team_a','team_b','scorecard_id','description','match_result','stadium','series','season','player_of_the_match','match_number',
+               'tv_umpire','reserve_umpire','match_referee','standing_umpire1','standing_umpire2','match_date','match_format','toss_won','toss_decision','winner','match_count','match_type']
+
+        else:
+            header = None
+    
+ 
+
+
+        df.to_csv("datasets/"+file_name+".csv",index=False,mode='a',header=header)
     except Exception as err:
         print(file_name,"Error saving",err)
 
@@ -99,12 +116,12 @@ if __name__ == "__main__":
     url = 'https://www.espncricinfo.com/records/tournament/team-match-results/icc-cricket-world-cup-2023-24-15338'
 
     # for csv
-    #save_all_match_scorecard_csv(url)
+    save_all_match_scorecard_csv(url)
     
     #for sql
-    engine = get_sql_engine()
+    #engine = get_sql_engine()
     #run_sql_file(engine=engine)
-    save_all_match_scorecard_sql(url=url,engine=engine)
+    #save_all_match_scorecard_sql(url=url,engine=engine)
 
 
     
