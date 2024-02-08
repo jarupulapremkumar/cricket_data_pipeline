@@ -22,6 +22,50 @@ The transformed cricket data is stored in different data sources for further ana
 
 - **CSV Files**: Additionally, the project offers the option to export the cleaned data to CSV files, enabling easy sharing and integration with other data analysis tools and platforms.
 
+## Code Flow for scorecard class 
+1. **`__init__(self, url)`**: 
+   - Initializes the `ScoreCard` object with a URL.
+   - Sets up attributes for storing batting and bowling data, player of the match, total score, etc.
+   - Calls the `collect_stats` method to gather data from the provided URL.
+
+2. **`get_html_response(self, url)`**:
+   - Fetches the HTML response from the given URL using `urllib.request.urlopen`.
+   - Handles exceptions that may occur during the HTTP request.
+
+3. **`get_bs_object(self, url)`**:
+   - Creates a BeautifulSoup object from the HTML response obtained from the URL.
+   - Parses the HTML content using `BeautifulSoup`.
+
+4. **`collect_stats(self, url)`**:
+   - Gathers statistics from the cricket scorecard webpage.
+   - Extracts the player of the match, country names, and calls other methods to fetch batting and bowling statistics.
+
+5. **`batting_stats(self, url, scorecard, scorecard_id)`**:
+   - Extracts batting statistics from the scorecard.
+   - Iterates through the batting table, retrieves headers and data, and appends them to the `batting_data` attribute.
+   - Collects fall of wickets data.
+
+6. **`bowling_stats(self, url, scorecard, scorecard_id)`**:
+   - Extracts bowling statistics from the scorecard.
+   - Iterates through the bowling table, retrieves headers and data, and appends them to the `bowling_data` attribute.
+
+7. **`get_match_name_from_url(self, link)`**:
+   - Extracts the match name from the URL.
+   - Parses the URL to determine the match name based on certain patterns.
+
+8. **`batting_stats_to_dataframe(self, header, data)`**:
+   - Converts batting statistics data into a pandas DataFrame.
+   - Ensures proper data types for each column.
+
+9. **`bowling_stats_to_dataframe(self, header, data)`**:
+   - Converts bowling statistics data into a pandas DataFrame.
+   - Ensures proper data types for each column.
+
+10. **`get_batting_stats(self)`**:
+    - Retrieves the batting statistics as a DataFrame.
+    - Calls `batting_stats_to_dataframe` if there are header and data available.
+
+
 ## Usage
 
 To use the Cricket Data Pipeline:
