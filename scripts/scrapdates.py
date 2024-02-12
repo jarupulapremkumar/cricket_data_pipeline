@@ -6,18 +6,20 @@ import utils
 
 class ScrapeDates:
     def __init__(self):
-        self.dfs_list = []
-        self.url_list = []
+        pass
 
     def scrape_url(self, url):
+        all_stats  = ()
         sc = ScoreCard()
         result = sc.collect_stats(url)
         if result:
-            return sc.get_all_stats()
-        else:
-            return None
-
+            all_stats =  sc.get_stats()
+        
+        return all_stats
+        
     def get_scraped_list(self, dates_list):
+        dfs_list = []
+        url_list = []
         if dates_list:
             for current_date in dates_list:
                 if current_date:
@@ -28,15 +30,14 @@ class ScrapeDates:
                         if score_url:
                             print(f"Scraping data using '{score_url}' for date: '{current_date}'")
                             dfs_tuple = self.scrape_url(score_url)
-                            print(dfs_tuple)
                             if dfs_tuple:
-                                self.dfs_list.append(dfs_tuple)
-                                self.url_list.append(score_url)
+                                dfs_list.append(dfs_tuple)
+                                url_list.append(score_url)
                             
         else:
             print("Provided Dates list is empty")
 
-        return self.url_list, self.dfs_list
+        return (url_list,dfs_list)
     
     def scrape_daily(self):
         current_date = datetime.now()
@@ -47,7 +48,6 @@ class ScrapeDates:
         return self.get_scraped_list(dates_list)
 
     def scrape_date(self,start_date,end_date):
-        print("s",start_date,end_date)
         dates_list = utils.get_dates(start_date=start_date, end_date=end_date)
         return self.get_scraped_list(dates_list)
 
@@ -69,29 +69,6 @@ class ScrapeDates:
         dates_list = utils.get_dates(start_year=start_year, end_year=end_year)
         return self.get_scraped_list(dates_list)
         
-
-
-'''   
-if __name__ == "__main__":
-    
-    sc = ScrapeDates()
-    # Get the current date
-    current_date = datetime.now()
-
-    # Format the date as "DD-MM-YYYY"
-    date = current_date.strftime("%d-%m-%Y")
-
-    dates_list = utils.get_dates(start_date="08-02-2024", end_date=date)
-    #print("date_list : ",dates_list)
-
-    print("current_month:",datetime.now().month)
-    print(f'{"*"*10} SCRAPING DATA{"*"*10}')
-    url_list,dfs_list = sc.scrape_date(start_date='08-02-2024',end_date=date)
-
-    for index,df_tuple in enumerate(dfs_list):
-        if df_tuple:
-            utils.save_scorecard(url_list[index],df_tuple,method = 'csv')
-'''
 
         
         

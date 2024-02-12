@@ -1,6 +1,7 @@
 #from bs4 import BeautifulSoup
 #import urllib.request
 import pandas as pd
+import numpy as np
 import re
 import sys
 #import requests
@@ -22,16 +23,14 @@ class ScoreCard:
         self.country_dict = {}
         self.table_count = 0
         self.player_of_the_match = ""
-        self.total_score = [["over_played", "run_rate", "total_score", "wickets_fallen", "country", "match_name","innings","scorecard_id"]]
+        self.total_score = [["over_played", "run_rate", "total_score", "wickets_fallen", "team", "match_name","innings","scorecard_id"]]
         self.playing_xii = {}
-        self.fall_of_wickets_header = [["wicket_number", "fallen_score", "over", "country", "match_name","innings","scorecard_id"]]
+        self.fall_of_wickets_header = ["wicket_number", "fallen_score", "fallen_over","batsmen","team", "match_name","innings","scorecard_id"]
         self.fall_of_wickets_data = []
         self.match_details_dict = {key: None for key in ['team_a','team_b','scorecard_id','description','match_result','stadium','series','season','player_of_the_match','match_number',
                                                           'tv_umpire','reserve_umpire','match_referee','umpire','match_date','match_format','toss_won','toss_decision','winner','match_count','match_type',
                                                           'player_of_the_series',"series_result"]}
-        
-        
-           
+            
     # this is main function this collects all the stats and stores them where is required
     def collect_stats(self,url):
         """
@@ -69,7 +68,6 @@ class ScoreCard:
         finally:
             return result
 
-
     def get_country_mapping(self,scorecard):
         c_dict  = {}
         outer_div = scorecard.find('div',class_ = "ds-flex ds-flex-col ds-mt-3 md:ds-mt-0 ds-mt-0 ds-mb-1")
@@ -105,23 +103,35 @@ class ScoreCard:
                         header = [td.text.replace("\xa0", "dismissed").replace("†", "").replace("(c)", "").strip().lower() if td  else None for td in list(tag.children)]
                         header = header if len(header) == 8 else header[:-1]
                         self.batting_header = header
-                        self.batting_header.extend(["country", "match_name","ininngs", "scorecard_id"])
+                        self.batting_header.extend(["team", "match_name","innings", "scorecard_id"])
                 
                 # extracting batting data and processing the data 
                 for tag in list(sc.find('tbody').children):
                     if not tag.get("class") :
                         batter_row = [td.text.replace("\xa0", " ").replace("†", "").replace("(c)", "").strip() if td else None for td in list(tag.children)]
                         batter_row = ['0' if item =='-' else item for item in batter_row]
-                        batter_row = batter_row if len(batter_row) ==8 else batter_row[:-1]
+                        
                         if batter_row and 'TOTAL' not in batter_row and not bool(re.search('Fall of wickets', " ".join(batter_row))):
+                            batter_row = batter_row if len(batter_row) ==8 else batter_row[:-1]
                             batter_row.extend([self.country_dict[str(country_index)],match_name_here,innings,scorecard_id])
                             self.batting_data.append(batter_row)
                         elif batter_row and 'TOTAL' in batter_row and not bool(re.search('Fall of wickets', " ".join(batter_row))):
+                            #to convert wickets fallen in test to int (delecting append d if match declared)
+                            #print(batter_row)
+                            batter_row_split = batter_row[2].split("/")
+                            
+                            if len(batter_row_split) > 1:
+                                wickets_fallen = batter_row_split[1]
+                                if not batter_row_split[1].isdigit():
+                                    wickets_fallen = batter_row_split[1][:-1]
+                            else:
+                                wickets_fallen = '10'
+
                             self.total_score.append([
                                 batter_row[1].split(" ")[0].strip(),
-                                batter_row[1].split(" ")[-1][:-1].strip(),
+                                batter_row[1].split(" ")[-1][:-1].strip() if len(batter_row[1].split(" "))==4 else batter_row[1].split(" ")[-3][:-1].strip(),
                                 batter_row[2].split("/")[0],
-                                batter_row[2].split("/")[1] if len(batter_row[2].split("/")) > 1 else '10',
+                                wickets_fallen,
                                 self.country_dict[str(country_index)],
                                 match_name_here,
                                 innings,
@@ -129,18 +139,37 @@ class ScoreCard:
                             ])
                         else:
                             if batter_row:
-                                for s in batter_row[0].split("),"):
-                                    if "Fall of wickets" in s:
-                                        lis = s.strip().split(" ")[3].split("-")
-                                        lis.extend([s.split()[-2], self.country_dict[str(country_index)],match_name_here,innings,scorecard_id])
-                                    elif "• DRS" in s:
-                                        lis = s.strip().split(" ")[0].split("-")
-                                        lis.extend([s.split()[-4], self.country_dict[str(country_index)],match_name_here,innings,scorecard_id])
-                                    else:
-                                        lis = s.strip().split(" ")[0].split("-")
-                                        lis.extend([s.split()[-2], self.country_dict[str(country_index)],match_name_here,innings ,scorecard_id])
+                                # Define regular expression pattern to extract wicket details
+                                pattern = r'\b(?:Fall of wickets:)?\s*(\d+-\d+)\s*\((.*?),\s*([\d.]+)\s*ov\b'
+                                # Iterate over each "Fall of wickets" string
+                                for wickets_str in batter_row:
+                                    # Split the string using delimiter ", "
+                                    wickets_list = wickets_str.split("),")
+                                    # Iterate over each substring to extract details
+                                    for wicket_info in wickets_list:
+                                        lis = []
+                                        # Use regular expression to match the pattern
+                                        match = re.match(pattern, wicket_info.strip())
+                                       
+                                        if match:
+                                            # Extract wicket number, batsman, and over at fallen
+                                            wicket_number, batsman, over_at_fallen = match.groups()
+                                            lis = [wicket_number.split("-")[0],wicket_number.split("-")[1],over_at_fallen,batsman,self.country_dict[str(country_index)],match_name_here,innings,scorecard_id]
+                                            #print("Wicket Number:", wicket_number)
+                                            #print("Batsman:", batsman.strip())
+                                            #print("Over at Fallen:", over_at_fallen)
+                                        else:
+                                            if "Fall of wickets" in wicket_info:
+                                                s = wicket_info
+                                                lis = [s.split(",")[0].split(" ")[-1].split("-")[0],s.split(",")[0].split(" ")[-1].split("-")[1],None,None,self.country_dict[str(country_index)],match_name_here,innings ,scorecard_id]
+                                            else:
+                                                s = wicket_info
+                                                s.split(",")[1].split("-")[0]
+                                                lis = [s.split(",")[1].split("-")[0],s.split(",")[1].split("-")[1],None,None,self.country_dict[str(country_index)],match_name_here,innings ,scorecard_id]
+                
+                                self.fall_of_wickets_data.append(lis)
 
-                                    self.fall_of_wickets_data.append(lis) 
+                             
 
             #extracting bowling data from tables
             for index,sc in enumerate(main_div.find_all('table', class_="ds-w-full ds-table ds-table-md ds-table-auto")):
@@ -149,7 +178,7 @@ class ScoreCard:
                     header = [td.text.replace("\xa0", " ").replace("†", "").replace("(c)", "").strip().lower() if td  else None for td in list(tag.children)]
                     header = header if len(header) == 11 else header[:-1]
                     self.bowling_header = header
-                    self.bowling_header.extend(["country", "match_name","innings", "scorecard_id"])
+                    self.bowling_header.extend(["team", "match_name","innings", "scorecard_id"])
 
                 #extracting bowlers data
                 for tag in list(sc.find('tbody').children):
@@ -164,8 +193,6 @@ class ScoreCard:
             country_index = 0 if country_index == 1 else country_index+1
             self.table_count = self.table_count +1
         
-        
-     
     # this function returjs match name from url
     def get_match_name_from_url(self):
         """
@@ -237,34 +264,24 @@ class ScoreCard:
         return df
     
     # getting bowling data as df getter function
-    def get_batting_stats(self,country:str = None):
+    def get_batting_stats(self):
         if len(self.batting_header) > 0 and len(self.batting_data) > 0:
             df = self.batting_stats_to_dataframe(self.batting_header, self.batting_data)
             
         else:
             df = None
-
-        if df is not None:
-            if country:
-                df = df[df['country'] == country]
-                df = df.drop(columns=["country"])
-
-        return df.drop(columns=["match_name"])
+                
+        return df
     
     # getting bowling data as df getter function
-    def get_bowling_stats(self,country:str = None):
+    def get_bowling_stats(self):
         if len(self.bowling_header) > 0 and len(self.bowling_data) > 0:
             df = self.bowling_stats_to_dataframe(self.bowling_header, self.bowling_data)
             
         else:
             df = None
-
-        if df is not None:
-            if country:
-                df = df[df['country'] == country]
-                df = df#.drop(columns="country")
-
-        return df#.drop(columns=["match_name"])
+                
+        return df
     
     #this function scraps match_detail fron bs object
     def match_details(self,scorecard, scorecard_id):
@@ -370,16 +387,12 @@ class ScoreCard:
         return df[cols]
 
     # getting match_details data as df getter function
-    def get_match_details(self,country:str = None):
+    def get_match_details(self):
         if self.match_details_dict:
             df = self.match_details_to_df(self.match_details_dict)
         else:
             df = None
 
-        if df is not None:
-            if country:
-                df = df[df['country'] == country]
-                df = df.drop(columns="country")
 
         return df
     
@@ -390,36 +403,31 @@ class ScoreCard:
         return df
     
     # getting total_score data as df getter function
-    def get_total_score(self,country:str = None):
-        df =  self.total_score_to_df(self.total_score)
-        
-    
-        if df is not None:
-            if country:
-                df = df[df['country'] == country]
-                df = df.drop(columns="country")
-
-        return df.drop(columns=["match_name"])
-    
-    def fall_of_wickets_to_df(self,header,data):
-        df =  pd.DataFrame(data = data,columns=header)
-        #df['country'] = df['country'].apply(lambda x : self.country_dict[x])
+    def get_total_score(self):
+        df = None
+        df = self.total_score_to_df(self.total_score)
+        #print(df)
+        df = df.astype({"over_played":float ,"run_rate":float ,"total_score":int ,"wickets_fallen":int })
 
         return df
     
-    def get_fall_of_wickets(self,country:str = None):
+    def fall_of_wickets_to_df(self,header,data):
+        df =  pd.DataFrame(data = data,columns=header)
+        df =df.astype({
+                'wicket_number':int ,'fallen_score':int  ,'fallen_over':float
+            })
+        df.replace({np.nan: None}, inplace=True)
+        return df
+    
+    def get_fall_of_wickets(self):
         if len(self.fall_of_wickets_header) > 0 and len(self.fall_of_wickets_data) > 0:
             df = self.fall_of_wickets_to_df(self.fall_of_wickets_header, self.fall_of_wickets_data)
+            #print(df)
             
         else:
             df = None
 
-        if df is not None:
-            if country:
-                df = df[df['country'] == country]
-                df = df.drop(columns="country")
-
-        return df.drop(columns=["match_name"])
+        return df
     
     # getting playing_xii data as dict or list getter function
     def get_playing_xii(self,country = None):
@@ -439,22 +447,57 @@ class ScoreCard:
             return self.playing_xii
     
     #prints all stats data
-    def display_all_stats(self):
+    def display_all_stats(self,batting_score:bool=True,bowling_score:bool=True,total_score:bool=True,match_details:bool=True,fall_of_wickets:bool=True):
         print(f'\t {"#"*100}' )
         print(f'{"*"*20}  DISPLAYING ALL STATS  {"*"*20}')
-        print(f'\t {"*"*10} DISPLAYING MATCH DETAILS  {"*"*10}')
-        print(self.get_match_details().T)
-        print(f'\t {"*"*10}  DISPLAYING TOTAL SCORE  {"*"*10}')
-        print(self.get_total_score())
-        print(f'\t {"*"*10}  DISPLAYING BATTING STATS  {"*"*10}')
-        print(self.get_batting_stats())
-        print(f'\t {"*"*10}  DISPLAYING BOWLING STATS  {"*"*10}')
-        print(self.get_bowling_stats())
+        if match_details:
+            print(f'\t {"*"*10} DISPLAYING MATCH DETAILS  {"*"*10}')
+            print(self.get_match_details().T)
+        if total_score:
+            print(f'\t {"*"*10}  DISPLAYING TOTAL SCORE  {"*"*10}')
+            print(self.get_total_score())   
+        if batting_score:
+            print(f'\t {"*"*10}  DISPLAYING BATTING STATS  {"*"*10}')
+            print(self.get_batting_stats())
+        if bowling_score:
+            print(f'\t {"*"*10}  DISPLAYING BOWLING STATS  {"*"*10}')
+            print(self.get_bowling_stats())
+        if fall_of_wickets:
+            print(f'\t {"*"*10}  DISPLAYING FALL OF WICKETS  {"*"*10}')
+            print(self.get_fall_of_wickets())
         print(f'\t {"#"*100}' )
 
-    #prints all stats data
-    def get_all_stats(self):
-        return (self.get_match_details(),self.get_total_score(),self.get_batting_stats(),self.get_bowling_stats())
+    #get all stats data
+    def get_stats(self,batting_score:bool=True,bowling_score:bool=True,total_score:bool=True,match_details:bool=True,fall_of_wickets:bool=True):
+        result_list =[]
+
+        if match_details:
+            result_list.append(self.get_match_details())
+        else:
+            result_list.append(None)
+
+        if total_score:
+            result_list.append(self.get_total_score())
+        else:
+            result_list.append(None)
+
+        if batting_score:
+            result_list.append(self.get_batting_stats())
+        else:
+            result_list.append(None)
+
+        if bowling_score:
+            result_list.append(self.get_bowling_stats())
+        else:
+            result_list.append(None)
+        
+        if fall_of_wickets:
+            result_list.append(self.get_fall_of_wickets())
+        else:
+            result_list.append(None)
+
+
+        return tuple(result_list)
 
     #getting the player of the match 
     def get_player_of_the_match(self):
@@ -478,15 +521,4 @@ class ScoreCard:
         self.match_details_dict={}
 
 
-# Example usage:
-'''
-if __name__ == "__main__":
-    url = '/series/west-indies-championship-2023-24-1419858/guyana-vs-trinidad-tobago-4th-match-1419862/full-scorecard'
-    score_card = ScoreCard()
-    score_card.collect_stats(url)
-    #print(score_card.bowling_header)
-    #print(score_card.bowling_data)
-    score_card.display_all_stats()
-    #print(score_card.get_match_details().T)
-    #print(score_card.get_batting_stats())
-'''
+
